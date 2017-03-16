@@ -56,16 +56,18 @@ def features_by_name(name):
             
     return features, classes
 
-def features_by_file(path):
+def features_by_file(path, tone):
     features = []
+    classes = []
     sr = 44100.
     sample, sr = librosa.load(path, sr)
     frames = librosa.util.frame(sample, 26460, hop_length = 26460)
     for frame in range(frames.shape[-1]):
             feature = extract_features(frames[:, frame], sr)
             features.append(feature)
+            classes.append(tone)
             
-    return features
+    return features, classes
 
 def features_by_tone(tone):
     features = []
@@ -138,6 +140,6 @@ def run_model(train_features, train_classes, test_features, model):
 def print_most_common_class(results, expected):
     data = Counter(results)
     most_common = data.most_common(1)
+    print "Expected Tone Class: " + expected
     print "The most common class was " + most_common[0][0] + " (Predicted " + str(most_common[0][1]) + " times, " +  str(len(results)) + " total)."
-    print "The expected class was " + expected + "."
     print ""

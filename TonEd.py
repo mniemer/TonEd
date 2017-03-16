@@ -57,32 +57,46 @@ print ""
 
 
 ## Let's classify some specific scales now...
+all_file_paths = []
 
-#get features by name
-emily_features, emily_classes = features_by_name("EmilyOtt")
-jon_features, jon_classes = features_by_name("JonHuang")
-megan_features, megan_classes = features_by_name("MeganRenner")
-ann_features, ann_classes = features_by_name("AnnDuchow")
-kaitlin_features, kaitlin_classes = features_by_name("KaitlinMoran")
-matt_features, matt_classes = features_by_name("MatthewNiemer")
+for file in os.listdir("samples/"):
+    if file.endswith(".wav"):
+        all_file_paths.append(os.path.join("samples/", file))
 
-#concatenate all features together (leave mine out)
-all_features = np.concatenate([emily_features, megan_features, ann_features, jon_features, kaitlin_features])
-all_classes = np.concatenate([emily_classes, megan_classes, ann_classes, jon_classes, kaitlin_classes])
+name = raw_input("Please enter the name you'd like to test: ")
+test_name = name.replace(" ", "")
+test_model = raw_input("Please enter the model you'd like to use: ")
+print ""
+
+all_features = []
+all_classes = []
+
+test_paths = [path for path in all_file_paths if path.startswith("samples/" + test_name)]
+file_paths = [path for path in all_file_paths if not path.startswith("samples/" + test_name)]
+
+for f in file_paths:
+    tone = f.split("_")[1].split(".")[0]
+    features, classes = features_by_file(f, tone)
+    all_features.append(features)
+    all_classes.append(classes)
+
+all_features = np.concatenate(all_features)
+all_classes = np.concatenate(all_classes)
 #shuffle the order!!
 all_features, all_classes = shuffle(all_features, all_classes)
 
 #get each scale that I played
-full_features = features_by_file('samples/MatthewNiemer_Full.wav')
-crunchy_features = features_by_file('samples/MatthewNiemer_Crunchy.wav')
-thin_features = features_by_file('samples/MatthewNiemer_Thin.wav')
+test_features = []
+test_classes = []
+for test_path in test_paths:
+    tone = test_path.split("_")[1].split(".")[0]
+    test_feature, test_class = features_by_file(test_path, tone)
+    test_features.append(test_feature)
+    test_classes.append(tone)
 
-#full_results = run_model(all_features, all_classes, full_features, "Nearest Neighbor")
-#crunchy_results = run_model(all_features, all_classes, crunchy_features, "Nearest Neighbor")
-#thin_results = run_model(all_features, all_classes, thin_features , "Nearest Neighbor")
-full_results = run_model(all_features, all_classes, full_features, "Decision Tree")
-crunchy_results = run_model(all_features, all_classes, crunchy_features, "Decision Tree")
-thin_results = run_model(all_features, all_classes, thin_features , "Decision Tree")
-print_most_common_class(full_results, "Full")
-print_most_common_class(crunchy_results, "Crunchy")
-print_most_common_class(thin_results, "Thin")
+print "~~~ Scale Classification Results for " + name + " using " + test_model + " ~~~"
+
+for i in range(len(test_features)):
+    expected_class = test_classes[i]
+    test_results = run_model(all_features, all_classes, test_features[i], test_model)
+    print_most_common_class(test_results, expected_class)
