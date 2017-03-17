@@ -15,7 +15,7 @@ def extract_features(audio, sr):
     delta_mfccs = np.diff(mfccs, axis = 1)
     mean_delta_mfccs = np.mean(delta_mfccs, axis = 1)
     var_delta_mfccs = np.var(delta_mfccs, axis = 1)
-    return np.concatenate([mean_mfccs, mean_delta_mfccs])
+    #return np.concatenate([mean_mfccs, mean_delta_mfccs])
     return np.concatenate([mean_mfccs, var_mfccs, mean_delta_mfccs, var_delta_mfccs])
     
 def analyze_results(results):
