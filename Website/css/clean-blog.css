@@ -57,7 +57,7 @@ hr.small {
   font-weight: 800;
 }
 .navbar-custom .navbar-header .navbar-toggle {
-  color: #777777;
+  color: black;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 12px;
@@ -74,27 +74,27 @@ hr.small {
     border-bottom: 1px solid transparent;
   }
   .navbar-custom .navbar-brand {
-    color: white;
+    color: black;
     padding: 20px;
   }
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus {
-    color: rgba(255, 255, 255, 0.8);
+    color: gray;
   }
   .navbar-custom .nav li a {
-    color: white;
+    color: black;
     padding: 20px;
   }
   .navbar-custom .nav li a:hover,
   .navbar-custom .nav li a:focus {
-    color: rgba(255, 255, 255, 0.8);
+    color: gray;
   }
   .navbar-custom .nav li ul.dropdown-menu a {
     color: #333333;
   }
   .navbar-custom .nav li ul.dropdown-menu a:hover,
   .navbar-custom .nav li ul.dropdown-menu a:focus {
-    color: #0085A1;
+    color: gray;
   }
 }
 @media only screen and (min-width: 1170px) {
@@ -126,14 +126,14 @@ hr.small {
   }
   .navbar-custom.is-fixed .navbar-brand:hover,
   .navbar-custom.is-fixed .navbar-brand:focus {
-    color: #0085A1;
+    color: gray;
   }
   .navbar-custom.is-fixed .nav li a {
     color: #333333;
   }
   .navbar-custom.is-fixed .nav li a:hover,
   .navbar-custom.is-fixed .nav li a:focus {
-    color: #0085A1;
+    color: gray;
   }
   .navbar-custom.is-visible {
     /* if the user changes the scrolling direction, we show the header */
