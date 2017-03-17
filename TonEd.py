@@ -105,7 +105,7 @@ def run_scale_classification():
     for i in range(len(test_features)):
         expected_class = test_classes[i]
         test_results = run_model(all_features, all_classes, test_features[i], test_model)
-        print_most_common_class(test_results, expected_class)
+        most_common_class(test_results, expected_class)
 
 if len(sys.argv) <= 1:
     run_cross_validation()

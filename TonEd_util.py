@@ -85,7 +85,7 @@ def features_by_tone(tone):
     
     return features, classes
 
-def cross_validation(features, classes, model, folds):
+def cross_validation(features, classes, model, folds, display=True):
     results = []
     for i in range(folds):
         start = i*features.shape[0]/folds
@@ -112,7 +112,10 @@ def cross_validation(features, classes, model, folds):
             result = clf.predict(features[j, :].reshape(1, -1))
             results.append((classes[j], result))
 
-    print_results(model, results)
+    if display:
+        print_results(model, results)
+        
+    return analyze_results(results)[0]
     
 def run_model(train_features, train_classes, test_features, model):
     results = []
@@ -137,9 +140,11 @@ def run_model(train_features, train_classes, test_features, model):
     
     return results
 
-def print_most_common_class(results, expected):
+def most_common_class(results, expected, display=True):
     data = Counter(results)
     most_common = data.most_common(1)
-    print "Expected Tone Class: " + expected
-    print "The most common class was " + most_common[0][0] + " (Predicted " + str(most_common[0][1]) + " times, " +  str(len(results)) + " total)."
-    print ""
+    if display:
+        print "Expected Tone Class: " + expected
+        print "The most common class was " + most_common[0][0] + " (Predicted " + str(most_common[0][1]) + " times, " +  str(len(results)) + " total)."
+        print ""
+    return most_common[0][0]
