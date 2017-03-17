@@ -152,7 +152,7 @@
                     Choosing an Algorithm
                     </h4>
                     <p>
-                    how we landed on Nearest Neighbor (we tried other stuff but nearest neighbor generally works the best)
+                    After feature extraction, we used the vectors to train various different machine learning algorithms, including Decision Trees, Nearest Neighbor, Multi-Layer Perceptrons, and Stochastic Gradient Descent. We used cross validation techniques to judge the performance of each algorithm on our data set, and Nearest Neighbor performed the best, with a precision of .52. On certain scales in our data set other algorithms perform better than Nearest Neighbor, but we found that overall it has the highest performance statistics of the algorithms we tested and thus is best suited to the general case of an unknown input scale. 
                     </p>
 
                 </div>
@@ -169,7 +169,7 @@
                     <h2 class="post-title" id="FutureWork">
                         Future Work
                     </h2>
-                    <p> future work includes doing better feature extraction and also fine tuning ml algorithms for better performance
+                    <p> In order to improve the performance of our system there are two main areas we believe can be improved: feature extraction and fine-tuning the algorithm we use. In order to improve feature extraction, further research into the similarities and differences between the timbre of individual violins would allow us to use features that identify the thin, crunchy or full tone of a recording rather than the characteristics of the violin used to create the recording. Fine tuning the learning algorithms that we use would also help improve the performance of our system, because we were able to achieve drastically different precision depending on the parameters used for the algorithms. The parameters we selected were the best that we found, however we believe that extensive further testing could help isolate the best input parameters for each algorithm, which would increase the precision of our system. 
                     </p>
                 </div>
                 <hr>
