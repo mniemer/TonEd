@@ -7,22 +7,25 @@ def run_demo():
         if file.endswith(".wav"):
             all_file_paths.append(os.path.join("samples/", file))
 
-    name = raw_input("Please enter the name you'd like to test: ")
-    test_name = name.replace(" ", "")
+    test_path = ""
+    demo = raw_input("Please enter the demo sample you'd like to test: ")
+    path = demo.replace(" ", "")
+    for file in os.listdir("demo/"):
+        if file.startswith(path):
+            test_path = os.path.join("demo/", file)
+
+    if test_path == "":
+        print demo + " is not a valid demo. Please try again."
+        return
+
     test_model = raw_input("Please enter the model you'd like to use: ")
     print ""
 
     all_features = []
     all_classes = []
 
-    test_paths = [path for path in all_file_paths if path.startswith("samples/" + test_name)]
-    file_paths = [path for path in all_file_paths if not path.startswith("samples/" + test_name)]
 
-    if len(test_paths) != 3:
-        print name + " is not a valid name. Please try again!"
-        return
-
-    for f in file_paths:
+    for f in all_file_paths:
         tone = f.split("_")[1].split(".")[0]
         features, classes = features_by_file(f, tone)
         all_features.append(features)
@@ -33,20 +36,18 @@ def run_demo():
     #shuffle the order!!
     all_features, all_classes = shuffle(all_features, all_classes)
 
-    #get each scale that I played
-    test_features = []
-    test_classes = []
-    for test_path in test_paths:
-        tone = test_path.split("_")[1].split(".")[0]
-        test_feature, test_class = features_by_file(test_path, tone)
-        test_features.append(test_feature)
-        test_classes.append(tone)
+    tone = test_path.split("_")[1].split(".")[0]
+    test_features, test_classes = features_by_file(test_path, tone)
+    test_results = run_model(all_features, all_classes, test_features, test_model)
 
-    print "~~~ Scale Classification Results for " + name + " using " + test_model + " ~~~"
-
-    for i in range(len(test_features)):
-        expected_class = test_classes[i]
-        test_results = run_model(all_features, all_classes, test_features[i], test_model)
-        most_common_class(test_results, expected_class)
+    print "~~~ Tone Reccomendation for " + demo + " using " + test_model + " ~~~"
+    result = most_common_class(test_results, tone, display=False)
+    print "This scale has a " + result + " tone."
+    if result == "Full":
+        print "Good Job!"
+    elif result == "Thin":
+        print "Try using more weight with your bow."
+    elif result == "Crunchy":
+        print "Try using less weight with your bow."
 
 run_demo()
