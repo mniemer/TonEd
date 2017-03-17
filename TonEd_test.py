@@ -30,10 +30,10 @@ def run_cross_validation_test():
     mlp_precision = 0
 
     for i in range(100):
-        dtree_precision = dtree_precision + cross_validation(all_features, all_classes, "Decision Tree", 18, display=False)
-        neighbor_precision = neighbor_precision + cross_validation(all_features, all_classes, "Nearest Neighbor", 18, display=False)
-        sgd_precision = sgd_precision + cross_validation(all_features, all_classes, "Stochastic Gradient Descent", 18, display=False)
-        mlp_precision = mlp_precision + cross_validation(all_features, all_classes, "Multi-layer Perceptron", 18, display=False)
+        dtree_precision = dtree_precision + cross_validation(all_features, all_classes, "Decision Tree", 10, display=False)
+        neighbor_precision = neighbor_precision + cross_validation(all_features, all_classes, "Nearest Neighbor", 10, display=False)
+        sgd_precision = sgd_precision + cross_validation(all_features, all_classes, "Stochastic Gradient Descent", 10, display=False)
+        mlp_precision = mlp_precision + cross_validation(all_features, all_classes, "Multi-layer Perceptron", 10, display=False)
         sys.stdout.write('#')
         sys.stdout.flush()
 

@@ -10,17 +10,12 @@ from collections import Counter
 
 def extract_features(audio, sr):
     mfccs = librosa.feature.mfcc(y=audio, sr=sr)[1:14, :]
-    plt.figure(figsize=(20, 4))
-    librosa.display.specshow(mfccs, x_axis='time')
-    plt.colorbar()
-    plt.title('MFCC')
-    plt.show()
     mean_mfccs = np.mean(mfccs, axis = 1)
     var_mfccs = np.var(mfccs, axis = 1)
     delta_mfccs = np.diff(mfccs, axis = 1)
     mean_delta_mfccs = np.mean(delta_mfccs, axis = 1)
     var_delta_mfccs = np.var(delta_mfccs, axis = 1)
-    #return np.concatenate([var_mfccs, var_delta_mfccs])
+    return np.concatenate([mean_mfccs, mean_delta_mfccs])
     return np.concatenate([mean_mfccs, var_mfccs, mean_delta_mfccs, var_delta_mfccs])
     
 def analyze_results(results):
