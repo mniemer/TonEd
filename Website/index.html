@@ -101,7 +101,7 @@
                         Problem
 
                     </h2>
-                    <p> The problem is simple. Young violinists want to have a full, rich, and beautiful tone:
+                    <p> The problem is simple. Young violinists want to play with a full, rich, and beautiful tone:
                     <br>
                     <audio controls>
                     <source src = "../samples/MeganRenner_Full.wav" type = "audio/wav">
@@ -127,8 +127,24 @@
                     <h2 class="post-title" id="Solution">
                         Solution
                     </h2>
-                    <p> The solution 
+                    <p> Our solution is a simple nearest neighbor classifier. Given an input recording of a scale played on a violin, the recording's tone is classified as one of three discrete categories: full, thin, or crunchy. Using this feedback the student can then improve the quality of their music after having identified the errors causing them to play with poor tone. 
                     </p>
+                    <p>
+                    The classifier is trained on a set of recordings from six experienced violinists with good tone control, who each provided a crunchy, thin, and full toned sample. Our sample collection guide is available <a href="TonEdSampleCollection.pdf">here</a>. Each sample consists of a 2 octave C Major scale played at 100 beats per minute. Each of these recordings is broken down on a note by note basis, and subsequently the Mel Frequency Cepstral Coefficents (MFCCs) of each of these notes is calculated and used to train the nearest neighbor classifier. Each recording contains 29 notes, thus the model is trained on 522 total data points. We used several different testing methods to measure the success of our classifier, including leave one out cross validation and ten fold cross validation. We measured the success of our classifier using the precision value of the results, and we used a confusion matrix as well to analyze classification results.
+                    </p>
+                    <h4>
+                    Feature Extraction
+                    </h4>
+                    <p>
+                    What features exactly are we looking at... (images)
+                    </p>
+                    <h4>
+                    Choosing an Algorithm
+                    </h4>
+                    <p>
+                    how we landed on Nearest Neighbor (we tried other stuff but nearest neighbor generally works the best)
+                    </p>
+
                 </div>
                 <hr>
                 <div class="post-preview">
