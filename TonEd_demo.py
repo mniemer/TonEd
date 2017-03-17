@@ -17,7 +17,7 @@ def run_demo():
     if test_path == "":
         print demo + " is not a valid demo. Please try again."
         return
-
+        
     test_model = raw_input("Please enter the model you'd like to use: ")
     print ""
 
