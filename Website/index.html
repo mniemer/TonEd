@@ -127,16 +127,26 @@
                     <h2 class="post-title" id="Solution">
                         Solution
                     </h2>
-                    <p> Our solution is a simple nearest neighbor classifier. Given an input recording of a scale played on a violin, the recording's tone is classified as one of three discrete categories: full, thin, or crunchy. Using this feedback the student can then improve the quality of their music after having identified the errors causing them to play with poor tone. 
+                    <p> Our solution is a simple nearest neighbor classifier. Given an input recording of a scale played on a violin, the recording's tone is classified as one of three discrete categories: Full, Thin, or Crunchy. Using this feedback the student can then improve the quality of their music after having identified the errors causing them to play with poor tone. 
+                    <img src='img/flowchart.png' style='width: 100%; height: auto'>
                     </p>
                     <p>
                     The classifier is trained on a set of recordings from six experienced violinists with good tone control, who each provided a crunchy, thin, and full toned sample. Our sample collection guide is available <a href="TonEdSampleCollection.pdf">here</a>. Each sample consists of a 2 octave C Major scale played at 100 beats per minute. Each of these recordings is broken down on a note by note basis, and subsequently the Mel Frequency Cepstral Coefficents (MFCCs) of each of these notes is calculated and used to train the nearest neighbor classifier. Each recording contains 29 notes, thus the model is trained on 522 total data points. We used several different testing methods to measure the success of our classifier, including leave one out cross validation and ten fold cross validation. We measured the success of our classifier using the precision value of the results, and we used a confusion matrix as well to analyze classification results.
+                    </p>
+                    <p>
+                    A practical use of TonEd means classifying whole scales together in one piece. We do this by breaking down the scale into notes and then classifying each note as either Full, Thin, or Crunchy. We then simply identify the most common class of the notes that made up the scale and assign the whole scale that class.
                     </p>
                     <h4>
                     Feature Extraction
                     </h4>
                     <p>
-                    What features exactly are we looking at... (images)
+                    Our feature extraction begins with the MFCC of an entire scale.
+                    <img src='img/MFCC.png' style='width: 100%; height: auto'>
+                    In order to provide more data for our machine learning algorithm, we window each scale into a series of notes (29 notes per scale x 18 scales total = 522 notes). Each note has a specific tone quality associated with it. From there, we take the mean and variance of each coefficient in each note, as well the mean and variance of the first deriviative of each coefficient in each note and save these features in a one dimensional array.
+                    <img src='img/full_features.png' style='width: 100%; height: auto'>
+                    <img src='img/thin_features.png' style='width: 100%; height: auto'>
+                    <img src='img/crunchy_features.png' style='width: 100%; height: auto'>
+                    We train our machine learning algorithm on the set features extracted from our set of 522 notes.
                     </p>
                     <h4>
                     Choosing an Algorithm
